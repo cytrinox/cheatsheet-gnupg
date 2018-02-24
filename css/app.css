@@ -259,10 +259,12 @@ section.section > dl >  dd > table {
 
 
 section.section td {
+	vertical-align: top;
 	font-style: italic;
 }
 
 section.section th {
+	vertical-align: top;
 	text-align: left;
 	font-weight: bold;
 }
