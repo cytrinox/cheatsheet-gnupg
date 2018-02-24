@@ -1,0 +1,353 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>GnuPG Cheatsheet</title>
+        <meta name="description" content="Cheatsheet for GnuPG">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        -->
+
+
+        <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-title" content="GnuPG Cheatsheet">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <em>outdated</em> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+
+        <article>
+
+
+        <header>
+            <h1>GnuPG <em>Cheatsheet</em></h1>
+
+
+            <p>written by <a href="mailto:daniel@chaospixel.com" rel="author">Daniel Vogelbacher</a></p>
+            <p>Feedback: <a href="https://github.com/cytrinox/cheatsheet-gnupg/issues" >Github Issue Tracker</a></p>
+        </header>
+
+
+
+
+        <section class="section brown">
+            <h2>Encrypt and Decrypt</h2>
+
+            <dl>
+                <dt>Encrypt a file with your key</dt>
+                <dd>
+                    <pre>gpg -er me@example.org diary.txt</pre>
+                    <p>
+                        -r encrypts the file for the user specified as argument. The output is written to <em>diary.txt.gpg</em>.
+                    </p>
+                </dd>
+                <dt>Encrypt a file for another person</dt>
+                <dd>
+                    <pre>gpg -er alice@example.org diary.txt</pre>
+                </dd>
+                <dt>Encrypt a file with passphrase</dt>
+                <dd>
+                    <pre>gpg -c diary.txt</pre>
+                </dd>
+                <dt>Decrypt a file</dt>
+                <dd>
+                    <pre>gpg -do diary.txt diary.txt.gpg</pre>
+                </dd>
+
+            </dl>
+
+        </section>
+
+
+        <section class="section blue">
+            <h2>Encrypt and Sign</h2>
+
+            <dl>
+                <dt>Encrypt a file and sign with your key</dt>
+                <dd>
+                    <pre>gpg -esr alice@example.orge diary.txt</pre>
+                    <p>
+                        Sign and decrypt the file, output is written to <em>diary.txt.gpg</em>.
+                    </p>
+                </dd>
+                <dt>Decrypt and verify a file</dt>
+                <dd>
+                    <pre>gpg -do diary.txt diary.txt.gpg</pre>
+                </dd>
+            </dl>
+
+        </section>
+
+
+        <section class="section violet">
+            <h2>Signing and Verification</h2>
+
+            <p>Signing compresses the file and append a signature.</p>
+            <dl>
+                <dt>Sign a file</dt>
+                <dd>
+                    <pre>gpg -s diary.txt</pre>
+                    <p>The signature is written to <em>diary.txt.gpg</em>.</p>
+                </dd>
+                <dt>Verify a signature</dt>
+                <dd>
+                    <pre>gpg --verify diary.txt.gpg</pre>
+                </dd>
+                <dt>Verify a signature and restore the file</dt>
+                <dd>
+                    <pre>gpg -do diary.txt diary.txt.gpg</pre>
+                    <p><em>-d</em> is for decryption, this works for signature files as well.</p>
+                </dd>
+            </dl>
+
+        </section>
+
+
+
+        <section class="section orange">
+            <h2>Special forms of signing</h2>
+
+            <p>With <em>clearsign</em>, the output is wrapped in an ASCII-armored signature.</p>
+            <dl>
+                <dt>Clearsign a file</dt>
+                <dd>
+                    <pre>gpg --clearsign diary.txt</pre>
+                    <p>The signature is written to <em>diary.txt.asc</em>.</p>
+                </dd>
+                <dt>Verify a clearsign signature</dt>
+                <dd>
+                    <pre>gpg --verify diary.txt.asc</pre>
+                </dd>
+                <dt>Verify a signature and restore the file</dt>
+                <dd>
+                    <pre>gpg -do diary.txt diary.txt.asc</pre>
+                    <p><em>-d</em> is for decryption, this works for signature files as well.</p>
+                </dd>
+            </dl>
+            <p><em>Detached signatures</em> are just signatures without any data</p>
+            <dl>
+                <dt>Sign a file using detached signature</dt>
+                <dd>
+                    <pre>gpg -o diary.txt.sig --detach-sig diary.txt</pre>
+                </dd>
+                <dt>Verify a detached signature</dt>
+                <dd>
+                    <pre>gpg --verify diary.txt.sig diary.txt</pre>
+                </dd>
+            </dl>
+
+        </section>
+
+
+        <section class="section green">
+            <h2>Public Key management</h2>
+            <dl>
+                <dt>List all public keys in keyring</dt>
+                <dd>
+                    <pre>gpg -k</pre>
+                </dd>
+                <dt>Export a public key</dt>
+                <dd>
+                    <pre>gpg -ao alice_pub.asc --export alice@example.org</pre>
+                </dd>
+                <dt>Import a public key</dt>
+                <dd>
+                    <pre>gpg --import alice_pub.asc</pre>
+                </dd>
+                <dt>Verify a public key fingerprint</dt>
+                <dd>
+                    <pre>gpg --fingerprint alice@example.org</pre>
+                </dd>
+            </dl>
+
+        </section>
+
+
+        <section class="section red">
+            <h2>Secret key management</h2>
+            <dl>
+                <dt>Generate key pair (RSA,DSA, ECC like Curve 25519)</dt>
+                <dd>
+                    <pre>gpg --expert --full-gen-key</pre>
+                    <p>Using <em>expert mode</em> for key generation enables the choice of different key types.</p>
+                </dd>
+
+                <dt>Edit secret key</dt>
+                <dd>
+                    <pre> gpg --expert --edit-key me@example.org</pre>
+                    <p>Most interesting commands:</p>
+                    <table>
+                        <tr>
+                            <th>adduid</th>
+                            <td>Create an additional user ID</td>
+                        </tr>
+                        <tr>
+                            <th>revuid</th>
+                            <td>Revoke a user ID or photographic user ID</td>
+                        </tr>
+                        <tr>
+                            <th>primary</th>
+                            <td>Flag the current user id as the primary one</td>
+                        </tr>
+                        <tr>
+                            <th>addkey</th>
+                            <td> Add a subkey to this key</td>
+                        </tr>
+                        <tr>
+                            <th>expire</th>
+                            <td>Change the key or subkey expiration time</td>
+                        </tr>
+                        <tr>
+                            <th>passwd</th>
+                            <td>Change the passphrase of the secret key</td>
+                        </tr>
+                        <tr>
+                            <th>save</th>
+                            <td>Save all changes to the keyrings and quit</td>
+                        </tr>
+                    </table>
+
+                </dd>
+                <dt>List all secret keys</dt>
+                <dd>
+                    <pre>gpg -K</pre>
+                </dd>
+                <dt>Generate revocation certificate</dt>
+                <dd>
+                    <pre>gpg -ao revoke-key.asc --gen-revoke A767285029E8882A</pre>
+                </dd>
+                <dt>Deleting keys</dt>
+                <dd>
+                    <pre>
+gpg --delete-secret-key A767285029E8882A
+gpg --delete-key A767285029E8882A
+                    </pre>
+                    <p>Make sure you have published a revocation certificate, if your key was uploaded to a key server!</p>
+                </dd>
+            </dl>
+
+        </section>
+
+
+
+        <section class="section emerald">
+            <h2>Signing Partys</h2>
+            <dl>
+                <dt>Show the public key fingerprint</dt>
+                <dd>
+                    <pre>gpg --fingerprint 00AA11BB22CC33DD</pre>
+                </dd>
+                <dt>Sign a public key</dt>
+                <dd>
+                    <pre>gpg --sign-key 00AA11BB22CC33DD</pre>
+                </dd>
+                <dt>List keys with signatures</dt>
+                <dd>
+                    <pre>gpg --list-sigs</pre>
+                </dd>
+                <dt>Generate fingerprint paper slips</dt>
+                <dd>
+                    <pre>gpg-key2latex --show-qrcode 00AA11BB22CC33DD</pre>
+                </dd>
+            </dl>
+
+        </section>
+
+
+        <section class="section orange">
+            <h2>Key servers</h2>
+            <dl>
+                <dt>Send public key to a keyserver</dt>
+                <dd>
+                    <pre>gpg --keyserver hkp://pgp.mit.edu --send-keys A767285029E8882A</pre>
+                    <p>Remember it's not possible to remove a key from any keyserver!</p>
+                </dd>
+
+                <dt>Get public key from a keyserver</dt>
+                <dd>
+                    <pre>gpg --keyserver hkp://pgp.mit.edu --recv-key A767285029E8882A</pre>
+                </dd>
+
+                <dt>Search public key on a keyserver</dt>
+                <dd>
+                    <pre>gpg --keyserver hkp://pgp.mit.edu --search-keys Alice</pre>
+                </dd>
+
+                <dt>Refresh all keys from keyserver</dt>
+                <dd>
+                    <pre>gpg --keyserver hkp://pgp.mit.edu --refresh-keys</pre>
+                    <p>Useful for updating a key with the latest signatures, user IDs, etc. Calling this with no
+              arguments will refresh the entire keyring.
+                </dd>
+
+            </dl>
+
+        </section>
+
+
+
+        <section class="section black">
+            <h2>Fancy features</h2>
+            <dl>
+                <dt>Export SSH compatible public key</dt>
+                <dd>
+                    <pre>gpg --export-ssh-key me@example.org</pre>
+                    <p>Export a key in the OpenSSH public key format. You need a subkey for authentication purposes <em>[A]</em>.</p>
+                </dd>
+
+                <dt>Get keygrip</dt>
+                <dd>
+                    <pre>gpg --list-secret-keys --with-keygrip</pre>
+                    <p>The keygrip can be put in <em>~/.gnupg/sshcontrol</em> to use GnuPG for ssh authentication.</p>
+                </dd>
+
+                <dt>Export subkeys</dt>
+                <dd>
+                    <pre>gpg -o my_subkey.gpg --export-secret-subkey F988A393A99DB2F3!</pre>
+                    <p>Export only one or more subkeys for a stripped keyring. Remember the required <em>!</em> at the end.</p>
+                </dd>
+
+
+                <dt>Update trust db</dt>
+                <dd>
+                    <pre>gpg --update-trustdb</pre>
+                </dd>
+
+            </dl>
+
+        </section>
+
+
+        </article>
+
+
+    </body>
+</html>
