@@ -7,6 +7,11 @@ body {
 	background-color: #333;
 	color: #ddd;
 	font: 300 13px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+}
+
+
+main {
 	padding:25px;
 	padding-left: 20px;
 	margin: 0px;
@@ -27,7 +32,7 @@ body {
 	padding:10px;
 }
 
-header {
+article > header {
 }
 
 h1 {
@@ -35,7 +40,7 @@ h1 {
 	padding: 0px;
 }
 
-header p {
+article > header p {
 	font-style: italic;
 	margin: 0;
 	margin-bottom: 2px;
@@ -45,7 +50,7 @@ header p {
 
 
  @media only screen and (max-width:480px){
- 	body {
+ 	main {
 		padding:15px;
 		padding-left: 2px;
  	}
@@ -54,7 +59,7 @@ header p {
 		padding:10px;
 		width: 95%;
 	}
-	header {
+	article > header {
 		margin-top: 5px !important;
 	}
 }
@@ -76,7 +81,7 @@ pre, code {
 
 
 
-h2 {
+section > h2 {
 	font-size: 1.2em;
 	margin: 0;
 	margin-top: 10px;
@@ -90,7 +95,7 @@ h2 {
 	background-image: linear-gradient(to bottom, #0389aa 0%, #00617f 100%);
 }
 
-h2::before {
+section > h2::before {
     content: "";
     position: absolute;
     top: -10px;
@@ -282,4 +287,117 @@ a {
 em {
 	font-weight: bold;
 	font-style: inherit;
+}
+
+
+
+
+
+
+
+
+body {
+  height: 100%;
+}
+
+.slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 256px;
+  min-height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none;
+}
+
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  background-color: #333; /* A background-color is required */
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
+
+
+
+nav {
+    background-color: white;
+    font-weight: bold;
+	color: #444;
+}
+
+nav header {
+    padding: 14px 16px;
+    padding-top: 15px;
+    font-size: 1.6em;
+    color: #777;
+    margin: 0;
+}
+
+
+#toc li {
+	margin: 0px;
+	padding: 0xp;
+	border-bottom: 1px solid #eee;
+
+}
+
+#toc {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+    font-size: 1.1em;
+
+}
+
+#toc li a {
+    display: block;
+    color: inherit;
+    padding: 17px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+#toc li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+
+
+.panel:before {
+  content: '';
+  display: block;
+  background-color: rgba(0,0,0,0);
+  transition: background-color 0.5s ease-in-out;
+}
+
+.panel-open:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 99;
 }

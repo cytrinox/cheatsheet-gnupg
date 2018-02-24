@@ -44,6 +44,18 @@
 
         <!-- Add your site or application content here -->
 
+        <nav id="menu">
+          <header>
+            <div>Navigation</div>
+          </header>
+            <ul id="toc">
+            </ul>
+        </nav>
+
+
+
+        <main id="panel">
+
         <article>
 
 
@@ -305,7 +317,7 @@ gpg --delete-key A767285029E8882A
                 <dd>
                     <pre>gpg --keyserver hkp://pgp.mit.edu --refresh-keys</pre>
                     <p>Useful for updating a key with the latest signatures, user IDs, etc. Calling this with no
-              arguments will refresh the entire keyring.
+              arguments will refresh the entire keyring.</p>
                 </dd>
 
             </dl>
@@ -347,7 +359,60 @@ gpg --delete-key A767285029E8882A
 
 
         </article>
+    </main>
 
+    <script src="js/slideout.js"></script>
+    <script>
+
+
+    function closenav(eve) {
+      //eve.preventDefault();
+      slideout.close();
+      return true;
+    }
+
+    var h1s = document.getElementsByTagName("h2");
+    var toc = document.getElementById("toc");
+    var h1n = 1;
+    for (var i = 0; i < h1s.length; i++) {
+        var h1 = h1s[i];
+        var anchor = document.createElement("a");
+        anchor.name = h1n;
+        h1.insertBefore(anchor, h1.firstChild);
+        h1.anchor = h1n;
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.onclick = closenav;
+        a.textContent = h1.textContent;
+        a.href = "#"+ h1n;
+        li.appendChild(a);
+        toc.appendChild(li);
+        h1n = h1n +1;
+    }
+
+
+      var slideout = new Slideout({
+        'panel': document.getElementById('panel'),
+        'menu': document.getElementById('menu'),
+        'padding': 256,
+        'tolerance': 40
+      });
+
+
+
+    slideout
+      .on('beforeopen', function() {
+        this.panel.classList.add('panel-open');
+      })
+      .on('open', function() {
+        this.panel.addEventListener('click', closenav);
+      })
+      .on('beforeclose', function() {
+        this.panel.classList.remove('panel-open');
+        this.panel.removeEventListener('click', closenav);
+      });
+
+    </script>
 
     </body>
 </html>
