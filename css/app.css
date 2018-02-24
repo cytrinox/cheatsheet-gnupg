@@ -12,8 +12,7 @@ body {
 	margin: 0px;
 }
 
-
-section.section {
+.section {
 	box-sizing:border-box;
 	display: inline-block;
 	width: 98%;
@@ -28,16 +27,35 @@ section.section {
 	padding:10px;
 }
 
+header {
+}
+
+h1 {
+	margin: 0px;
+	padding: 0px;
+}
+
+header p {
+	font-style: italic;
+	margin: 0;
+	margin-bottom: 2px;
+	font-weight: bold;
+}
+
+
 
  @media only screen and (max-width:480px){
  	body {
 		padding:15px;
 		padding-left: 2px;
  	}
-	section.section {
+	.section {
 		margin:15px;
 		padding:10px;
 		width: 95%;
+	}
+	header {
+		margin-top: 5px !important;
 	}
 }
 
@@ -259,23 +277,6 @@ a {
 }
 
 
-header {
-	margin-left: 10px;
-	margin-bottom: 10px;
-}
-
-h1 {
-	margin:0;
-	margin-top: 5px;
-
-}
-
-header p {
-	font-style: italic;
-	margin: 0;
-	margin-bottom: 2px;
-	font-weight: bold;
-}
 
 
 em {
